@@ -2,9 +2,10 @@ package model
 
 import (
 	"errors"
+	"time"
+
 	"github.com/asaskevich/govalidator"
 	uuid "github.com/satori/go.uuid"
-	"time"
 )
 
 type PixKeyRepositoryInterface interface {
@@ -44,10 +45,11 @@ func (pixKey *PixKey) isValid() error {
 func NewPixKey(kind string, account *Account, key string) (*PixKey, error) {
 
 	pixKey := PixKey{
-		Kind:    kind,
-		Key:     key,
-		Account: account,
-		Status:  "active",
+		Kind:      kind,
+		Key:       key,
+		AccountID: account.ID,
+		Account:   account,
+		Status:    "active",
 	}
 
 	pixKey.ID = uuid.NewV4().String()
